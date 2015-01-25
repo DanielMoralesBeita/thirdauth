@@ -114,4 +114,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-from settings_local import * #for private passwords and authentication outside of VCS
+#for private passwords and authentication outside of VCS
+from settings_local import * 
+
