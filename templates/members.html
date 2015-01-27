@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<p>User's name and surname: {{ user.first_name }} {{ user.last_name}}</p>
+<p>Username: {{ user.username }}</p>
+<p>E-mail: {{ user.email }}</p>
+<a href="/logout_view">Logout</a>
+{% endblock %}
+
