@@ -1,7 +1,3 @@
-from django.shortcuts import render_to_response
-from django.template.context import RequestContext
-from django.contrib.auth.models import User
-
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout as auth_logout
 from socialnetworks.twitter import get_twitter_friends

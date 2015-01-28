@@ -22,12 +22,9 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
-#SOCIAL_AUTH_USER_MODEL = 'thirdauth.CustomUser'
-AUTH_USER_MODEL = 'thirdauth.CustomUser'
-
-#SOCIAL_AUTH_USER_MODEL = 'thirdauth.User'
 
 # SECURITY WARNING: keep the secret key used in production secret!
+AUTH_USER_MODEL = 'thirdauth.CustomUser'
 SECRET_KEY = ''
 SOCIAL_AUTH_TWITTER_KEY =  ''
 SOCIAL_AUTH_TWITTER_SECRET = ''
@@ -38,7 +35,7 @@ SOCIAL_AUTH_FACEBOOK_SECRET = ''
 LINKEDIN_CONSUMER_KEY        = ''
 LINKEDIN_CONSUMER_SECRET     = ''
 #for private passwords and authentication outside of VCS
-from thirdauth.settings_local import * 
+from thirdauth.local_settings import * 
 
 ##################                      
 # Add email to requested authorizations.
