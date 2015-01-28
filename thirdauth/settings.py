@@ -12,20 +12,40 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 LOGIN_REDIRECT_URL = '/members'
+LOGIN_ERROR_URL = '/login-error'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'lr(&0&6!-dh-me2lxlv&xb#(o26f5teu!_-nd*a^@nyj@v2v_$'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
+#SOCIAL_AUTH_USER_MODEL = 'thirdauth.CustomUser'
+AUTH_USER_MODEL = 'thirdauth.CustomUser'
 
+#SOCIAL_AUTH_USER_MODEL = 'thirdauth.User'
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = ''
+SOCIAL_AUTH_TWITTER_KEY =  ''
+SOCIAL_AUTH_TWITTER_SECRET = ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =  ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
+SOCIAL_AUTH_FACEBOOK_KEY = ''
+SOCIAL_AUTH_FACEBOOK_SECRET = ''
+LINKEDIN_CONSUMER_KEY        = ''
+LINKEDIN_CONSUMER_SECRET     = ''
+#for private passwords and authentication outside of VCS
+from thirdauth.settings_local import * 
+
+##################                      
+# Add email to requested authorizations.
+LINKEDIN_SCOPE = ['r_basicprofile', 'r_emailaddress',] 
+# Add the fields so they will be requested from linkedin.
+LINKEDIN_EXTRA_FIELD_SELECTORS = ['email-address', 'headline', 'industry']
+# Arrange to add the fields to UserSocialAuth.extra_data
 SOCIAL_AUTH_FACEBOOK_SCOPE = [
     'email',
     'user_friends',
@@ -40,6 +60,20 @@ LINKEDIN_OAUTH2_EXTRA_DATA = [('id', 'id'),
                        ('firstNameame', 'first_name'),
                        ('lastName', 'last_name'),]
 ##################                      
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.user.create_user',
+#    'thirdauth.save_profile',  # <--- set the import-path to the function
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details'
+)
+##################                      
+
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, "templates/"), 
 )
@@ -123,6 +157,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-#for private passwords and authentication outside of VCS
-from settings_local import * 
 

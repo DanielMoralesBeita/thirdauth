@@ -4,6 +4,13 @@
 <p>User's name and surname: {{ user.first_name }} {{ user.last_name}}</p>
 <p>Username: {{ user.username }}</p>
 <p>E-mail: {{ user.email }}</p>
+<p>location: {{ user.location }}</p>
+<p> 
+{% for names in twitter_friends_list %}
+{{ names.firstname}} {{ names.lastname }}<br>
+{% endfor %}
+<p>
 <a href="/logout_view">Logout</a>
+
 {% endblock %}
 

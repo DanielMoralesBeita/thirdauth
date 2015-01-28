@@ -1,36 +1,25 @@
+from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
-#from django.contrib.auth.models import AbstractUser
-#class CustomUser(AbstractUser):
-#    pass
+# AUTH_USER_MODEL = 'thirdauth.CustomUser'
+class CustomUser(AbstractUser): 
+    friends_lists = models.TextField()
 
-#http://stackoverflow.com/questions/20976431/get-facebook-user-likes-in-python-social-auth
-def get_likes(strategy, details, response, *args, **kwargs):
-    if strategy.backend.name == 'facebook':
-        likes = strategy.backend.get_json(
-            'https://graph.facebook.com/%s/likes' % response['id'],
-            params={'access_token': response['access_token']}
-        )
-        for like in likes['data']:
-            pass  # Process and save likes here
-
-class FacebookStatus(models.Model):
-    class Meta:
-        verbose_name_plural = 'Facebook Statuses'
-        ordering = ['publish_timestamp']
-
-    STATUS = (
-        ('draft', 'Draft'),
-        ('approved', 'Approved'),
-    )
-    status = models.CharField(max_length=255, 
-        choices=STATUS, default=STATUS[0][0])
-    publish_timestamp = models.DateTimeField(null=True, blank=True)
-    author = models.ForeignKey(User)
-    message = models.TextField(max_length=255)
-    link = models.URLField(null=True, blank=True)
-
-    def __unicode__(self):
-        return self.message
+# class List(models.Model):
+#     owner = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
+#     def get_absolute_url(self):
+#         return reverse('view_list', args=[self.id])
+#     @staticmethod
+#     def create_new(item_firstname, item_lastname, item_zipcode, owner=None):
+#         list_ = List.objects.create(owner=owner)
+#         # find_nearby_zips(item_zipcode)
+#         (cols,rows,p) = query(item_firstname, item_lastname, item_zipcode)
+#         Voter.objects.create(firstname=item_firstname, lastname=item_lastname, list=list_)
+#     return list_
+# class Voter(models.Model):
+#     lastname = models.CharField(default='', max_length=100, null=True)
+#     firstname = models.CharField(default='', max_length=100, null=True)
+#     list = models.ForeignKey(List, default=None)
 
